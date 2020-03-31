@@ -29,6 +29,7 @@ class JokeManager : ContentProvider() {
         TODO("not needed")
     }
 
+    ///Get the specific query from the API
     override fun query(
         uri: Uri,
         projection: Array<out String>?,

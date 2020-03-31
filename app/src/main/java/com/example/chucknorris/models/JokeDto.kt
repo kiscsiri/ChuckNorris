@@ -1,4 +1,4 @@
 package com.example.chucknorris.models
 
-class JokeDto {
+class JokeDto(val id: Int, var joke: String?) {
 }
