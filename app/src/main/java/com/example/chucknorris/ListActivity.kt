@@ -5,10 +5,13 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.example.chucknorris.models.JokeDto
+import com.example.chucknorris.presenters.JokeListPresenter
+import com.example.chucknorris.screens.JokeListScreen
 
 import kotlinx.android.synthetic.main.activity_main.*
 
-class ListActivity : AppCompatActivity() {
+class ListActivity : AppCompatActivity(), JokeListScreen {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,19 +24,21 @@ class ListActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
+    override fun onStart() {
+        super.onStart()
+        JokeListPresenter.attachScreen(this)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
+    override fun onStop() {
+        super.onStop()
+        JokeListPresenter.detachScreen()
+    }
+
+    override fun getJokes(): List<JokeDto> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun navigateToJokeDetails(id: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
