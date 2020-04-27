@@ -1,0 +1,99 @@
+swagger: "2.0"
+info:
+  description: "Chuck Norri api"
+  version: "1.0.0"
+  title: "Swagger CN"
+  termsOfService: "http://swagger.io/terms/"
+host: "api.icndb.com"
+basePath: "/"
+schemes:
+- "https"
+- "http"
+paths:
+  /jokes:
+    get:
+      tags:
+      - "jokes"
+      summary: "Gett all jokes"
+      description: ""
+      operationId: "getJokes"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/joke"
+  /jokes/{jokeId}:
+    get:
+      tags:
+      - "joke"
+      summary: "Find joke by ID"
+      description: "Returns a single joke"
+      operationId: "getJokeById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jokeId"
+        in: "path"
+        description: "ID of joke to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/joke"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Joke not found"
+  /jokes/random:
+    get:
+      tags:
+      - "Random joke"
+      summary: "Get random joke"
+      description: "Returns a single joke"
+      operationId: "getRandomJoke"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/joke"
+definitions:
+  joke:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      joke:
+        type: "string"
+      categories:
+        type: "array"
+        xml:
+          name: "categories"
+          wrapped: true
+        items:
+          type: "string"
+        default: false
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
